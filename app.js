@@ -1,0 +1,9 @@
+const data=[["Rasengan","🌀","Bring both hands together and make a small spinning motion.",["👐","🌀","⚡"]],["Fireball","🔥","Cup one hand near your mouth, then push forward.",["🦅","🤲","🔥"]],["Shadow Clone","👥","Make the cross-hand sign with both hands.",["👐","✋","👥"]],["Chidori","⚡","Clap your hands, then point forward with one hand.",["👏","👉","⚡"]],["Water Dragon","🌊","Form a triangle-like sign and sweep your hands outward.",["🙏","🤲","🌊"]],["Amaterasu","🌑","Hold your hands together, then slowly separate them.",["🤝","👐","🌑"]]];
+let current=0;const cards=document.querySelector("#cards"),name=document.querySelector("#jutsuName"),desc=document.querySelector("#desc"),signs=document.querySelector("#signs"),progress=document.querySelector("#progress"),toast=document.querySelector("#toast"),trainer=document.querySelector("#trainer");
+data.forEach((x,i)=>{const c=document.createElement("div");c.className="card"+(i===0?" active":"");c.innerHTML="<span>"+x[1]+"</span><b>"+x[0]+"</b>";c.onclick=()=>select(i);cards.appendChild(c)});
+function select(i){current=i;document.querySelectorAll(".card").forEach((c,j)=>c.classList.toggle("active",i===j));name.textContent=data[i][0];desc.textContent=data[i][2];signs.innerHTML=data[i][3].map(s=>'<div class="sign">'+s+"</div>").join("");progress.textContent=(i+1)+" / 6"}
+document.querySelector("#start").onclick=()=>{trainer.scrollIntoView({behavior:"smooth"});toastMsg("Training started — copy the hand signs!")};
+document.querySelector("#cameraBtn").onclick=()=>toastMsg("Camera demo ready. Real hand tracking can be connected next.");
+document.querySelector("#activate").onclick=()=>{trainer.classList.remove("success");void trainer.offsetWidth;trainer.classList.add("success");toastMsg("✨ "+data[current][0]+" ACTIVATED! Believe it!");};
+function toastMsg(t){toast.textContent=t;toast.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>toast.style.display="none",2200)}
+select(0);
